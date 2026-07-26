@@ -524,21 +524,47 @@
     <h2 class="reveal">이 이야기를 나누세요</h2>
     <p class="intro reveal">아래 QR코드를 휴대폰 카메라로 스캔하면 이 페이지가 바로 열립니다.
     강릉으로 떠나는 길, 달 이야기를 함께 가져가세요.</p>
-   <div class="qr-card reveal">
-      <h3>강릉, 다섯 개의 달</h3>
-      <button type="button" id="odalMoonPlay" aria-label="파도소리 재생"
-        style="width:150px;height:150px;border-radius:50%;border:none;cursor:pointer;
-        margin:20px auto;display:flex;align-items:center;justify-content:center;
-        background:radial-gradient(circle at 35% 30%, #fff7d6 0%, #f5dd8a 35%, #d9ad3f 75%, #a9791f 100%);
-        box-shadow:0 0 30px rgba(245,221,138,0.55), inset -8px -8px 20px rgba(150,100,20,0.35);
-        font-size:34px;color:#4a3300;transition:transform 0.2s ease;">
-        <span id="odalMoonIcon">▶</span>
-      </button>
-      <audio id="odalWaveAudio" src="https://celebrated-licorice-2479e5.netlify.app/wave.mp3" preload="none"></audio>
-      <p>달을 눌러 경포 파도소리를 들어보세요</p>
+   <div class="qr-card reveal" id="odalNavyCard" style="position:relative;overflow:hidden;
+      background:linear-gradient(180deg,#1c2038 0%,#0a0b18 100%);
+      border-radius:16px;padding:36px 20px;text-align:center;">
+      <div id="odalStars" style="position:absolute;inset:0;pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;">
+        <h3 style="color:#f2ede1;">강릉, 다섯 개의 달</h3>
+        <button type="button" id="odalMoonPlay" aria-label="파도소리 재생"
+          style="width:150px;height:150px;border-radius:50%;border:none;cursor:pointer;
+          margin:20px auto;display:flex;align-items:center;justify-content:center;
+          background:radial-gradient(circle at 35% 30%, #fff7d6 0%, #f5dd8a 35%, #d9ad3f 75%, #a9791f 100%);
+          box-shadow:0 0 30px rgba(245,221,138,0.55), inset -8px -8px 20px rgba(150,100,20,0.35);
+          font-size:34px;color:#4a3300;transition:transform 0.2s ease;">
+          <span id="odalMoonIcon">▶</span>
+        </button>
+        <audio id="odalWaveAudio" src="https://celebrated-licorice-2479e5.netlify.app/wave.mp3" preload="none"></audio>
+        <p style="color:#cfc9ba;">달을 눌러 경포 파도소리를 들어보세요</p>
+      </div>
     </div>
+    <style>
+      #odalStars span{
+        position:absolute; width:2px; height:2px; border-radius:50%;
+        background:#f2ede1; opacity:.6;
+        animation:odalTwinkle 4.5s ease-in-out infinite;
+      }
+      @keyframes odalTwinkle{
+        0%,100%{ opacity:.15; transform:scale(1); }
+        50%{ opacity:.9; transform:scale(1.6); }
+      }
+    </style>
     <script>
       (function(){
+        var starsBox = document.getElementById('odalStars');
+        if(starsBox){
+          for(var i=0;i<40;i++){
+            var s = document.createElement('span');
+            s.style.left = (Math.random()*100)+'%';
+            s.style.top = (Math.random()*100)+'%';
+            s.style.animationDelay = (Math.random()*4.5)+'s';
+            starsBox.appendChild(s);
+          }
+        }
         var btn = document.getElementById('odalMoonPlay');
         var icon = document.getElementById('odalMoonIcon');
         var audio = document.getElementById('odalWaveAudio');
