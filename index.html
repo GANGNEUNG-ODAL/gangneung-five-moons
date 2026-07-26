@@ -524,13 +524,42 @@
     <h2 class="reveal">이 이야기를 나누세요</h2>
     <p class="intro reveal">아래 QR코드를 휴대폰 카메라로 스캔하면 이 페이지가 바로 열립니다.
     강릉으로 떠나는 길, 달 이야기를 함께 가져가세요.</p>
-    <div class="qr-card reveal">
+   <div class="qr-card reveal">
       <h3>강릉, 다섯 개의 달</h3>
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAzQAAAM0AQAAAABFCVraAAAEZklEQVR4nO3dS47jNhAA0GIwe+n+t8sNpBMwC5PmR3K6ke6ewJxXC8OSKD2AG5dL/KQcvyPOv34LE8HhcDgcDofD4XA4HA6Hw+FwOBwOh8PhcDgcDud/ddIce0RKe3+1b7dHRJzl3MsH3Dg/GhwOh8PhcL7Z2XIX5dzZ/9CntEeUq2dKEVtpV5rcPeDG+cHgcDgcDofz/c7ln//2zAVakz0i5yOiZA/ppojQHnDv/FRwOBwOh8P5evz698s5zhQ5zj1yRETLA9Lz43MTJFfrNw6Hw+FwVnY+yA9KGrCVJCDHmSIeOUNERJx7pNiOj53V+o3D4XA4nJWdOT/I8+G516xgO2r9oH6rSULqbntRTlit3zgcDofDWdkZ8oMzzZdTbLl+RMQlSXhcPWoR4fqAGqv1G4fD4XA4KztdfnD3z7+OPyhvFVoGkMePlw+osVq/cTgcDoezshP9fMQt5zIv4dqkn7x49Le1uYytXbmxu2O1fuNwOBwOZ2Xn9oe+ZQotISiNj8u901Punyw/4HA4HA7njZwP6gflsKUL7bClBsfzY0gw1A84HA6Hw3lTZ/yX/zx39D/5d28VWgbQP+W4rynIDzgcDofDeStnmL+w9SMM2+SEctiiLpeU+8ZH1yQ/z9VYrd84HA6Hw1nZmccfXOLo211eQQwvHu5eQagfcDgcDofzfk5XP6hrGOzd5alM0NZCyo92j4WT+iUSXqyAsFq/cTgcDoezsjPPPLgrHVz2ZdzGb8eldGB8IofD4XA47+wM6yO13RRqEWEoHdyci7iWDlqJoYvV+o3D4XA4nD/GGQYX9PWDur9zzkfZwbmcO1PqZy3UqkFKe9kH+tb5weBwOBwOh/P1uI4/iH7XhXZYvsWzzhDRbeIY5cJzMeY5Vus3DofD4XBWdq77L9QNG8scxce55w6NdVemlhVMeYTxiRwOh8PhvL3zen3lcvXo3zRMIxDvhzAeN5McjU/kcDgcDueNnPn9Qr4dhtjt75yHq1PBoM2N3KZRjKv1G4fD4XA4KzvX/RfyuHjy1k98nLZemJ7ycp8G9QMOh8PhcN7K+TUd92sk19GG+XJuryfqqsptnMKlpvCI1fqNw+FwOJyVnev6SMdNk+Myg/ET5YQ+1A84HA6Hw3kj54P9F/qW1wGJ7QF37ybkBxwOh8PhvKkzjE+coi6HMFUH8jgFcpjpeNRGw2uJWK/fOBwOh8NZ2Rn3dz66gyldSOO3aRGEiGgLKFgficPhcDictZz0iH08Vw/vV1+OiIiz3NneQ1hfmcPhcDic1Z1paaTy4z9NgTzGdv/F+WJwOBwOh8P5cacMOTxLXaBsyPT3ZX+mFv3uTZ93vi04HA6Hw+F8Peb1D+aZio9oez5vuX48NoPO3U5N0xCFIVbrNw6Hw+FwVnaG/OA6srD/8X9kBaVJ7j7qdo4lhlGONVbrNw6Hw+FwVnbSfcHgu+Ncrd84HA6Hw+FwOBwOh8PhcDgcDofD4XA4HA6Hw+G0+AfxwoTudGa+gQAAAABJRU5ErkJggg==" alt="파도소리 재생 페이지 QR코드" style="width:100%;height:auto;display:block;">
-    
-      <p>휴대폰 카메라로 스캔하세요</p>
-     <p class="url">gangneung-odal.github.io/gangneung-five-moons</p>
+      <button type="button" id="odalMoonPlay" aria-label="파도소리 재생"
+        style="width:150px;height:150px;border-radius:50%;border:none;cursor:pointer;
+        margin:20px auto;display:flex;align-items:center;justify-content:center;
+        background:radial-gradient(circle at 35% 30%, #fff7d6 0%, #f5dd8a 35%, #d9ad3f 75%, #a9791f 100%);
+        box-shadow:0 0 30px rgba(245,221,138,0.55), inset -8px -8px 20px rgba(150,100,20,0.35);
+        font-size:34px;color:#4a3300;transition:transform 0.2s ease;">
+        <span id="odalMoonIcon">▶</span>
+      </button>
+      <audio id="odalWaveAudio" src="https://celebrated-licorice-2479e5.netlify.app/wave.mp3" preload="none"></audio>
+      <p>달을 눌러 경포 파도소리를 들어보세요</p>
     </div>
+    <script>
+      (function(){
+        var btn = document.getElementById('odalMoonPlay');
+        var icon = document.getElementById('odalMoonIcon');
+        var audio = document.getElementById('odalWaveAudio');
+        if(!btn || !audio) return;
+        btn.addEventListener('click', function(){
+          if(audio.paused){
+            audio.play();
+            icon.textContent = '❚❚';
+            btn.style.transform = 'scale(1.05)';
+          } else {
+            audio.pause();
+            icon.textContent = '▶';
+            btn.style.transform = 'scale(1)';
+          }
+        });
+        audio.addEventListener('ended', function(){
+          icon.textContent = '▶';
+          btn.style.transform = 'scale(1)';
+        });
+      })();
+    </script>
   </section>
 </main>
 
